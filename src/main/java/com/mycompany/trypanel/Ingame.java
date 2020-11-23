@@ -42,8 +42,9 @@ public class Ingame extends javax.swing.JFrame {
         };
         labelTurn.setText(turn.getName());
     }
-
+   
     public void checkWinner() {
+        checkDraw();
         boolean checkWinner = false;
         for (int i = 0; i < table.length; i++) {
             if (table[i][0] == table[i][1] && table[i][1] == table[i][2] && table[i][0] != 0) {
@@ -65,23 +66,23 @@ public class Ingame extends javax.swing.JFrame {
         }
     }
 
-    public Player checkTurn() {
-        return turn;
-    }
-
-     public boolean canPlay() {
+    public void checkDraw(){
         int sum = 0;
         for (int i = 0; i < table.length; i++) {
-            for (int j = 0; j < table.length; j++) {
+            for (int j = 0; j < table[i].length; j++) {
                 if (table[i][j] != 0) {
                     sum++;
                 }
             }
         }
-        if (sum > 9) {
-            return true;
+        if (sum >= 9) {
+            DialogAlert dl = new DialogAlert("*** Draw ***");
+            dl.setVisible(true);
         }
-        return false;
+    }
+    
+    public Player checkTurn() {
+        return turn;
     }
 
     public boolean check(Player p, int row, int col) {
@@ -93,7 +94,6 @@ public class Ingame extends javax.swing.JFrame {
         return false;
         
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
